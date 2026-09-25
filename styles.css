@@ -1,0 +1,483 @@
+/* =========================================================
+   Pantry — recipe site styles
+   Palette: herb-garden greens with a saffron accent
+   ========================================================= */
+
+:root {
+  --leaf:      #E9EEDF;  /* page background */
+  --paper:     #FFFFFF;  /* surfaces */
+  --aubergine: #2A1A2C;  /* main text */
+  --basil:     #3E6A3A;  /* secondary / links */
+  --saffron:   #F2B632;  /* the one bright accent */
+  --stem:      #C9D3B8;  /* borders and dividers */
+
+  --muted: #5E5460;
+
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Literata", Georgia, "Times New Roman", serif;
+
+  --radius-lg: 20px;
+  --radius-sm: 999px;
+
+  --page-width: 1180px;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --leaf:      #1C1A1D;
+    --paper:     #262328;
+    --aubergine: #F1ECE4;
+    --basil:     #9CC592;
+    --stem:      #3B3740;
+    --muted:     #B3AAB5;
+  }
+}
+
+/* ---------- Base ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--leaf);
+  color: var(--aubergine);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--basil);
+}
+
+:focus-visible {
+  outline: 3px solid var(--saffron);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+main {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 1.25rem var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--aubergine);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.5rem;
+  font-family: var(--font-display);
+}
+
+.site-nav a {
+  color: var(--aubergine);
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--saffron);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+}
+
+/* ---------- Hero: search lives in the headline ---------- */
+
+.hero {
+  padding: clamp(3rem, 10vw, 7rem) 0 3rem;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  margin: 0 0 2rem;
+  max-width: 14ch;
+}
+
+.hero__input {
+  display: block;
+  width: 100%;
+  margin-top: 0.15em;
+  font: inherit;
+  color: var(--basil);
+  background: transparent;
+  border: none;
+  border-bottom: 6px solid var(--saffron);
+  padding: 0 0 0.1em;
+}
+
+.hero__input::placeholder {
+  color: var(--basil);
+  opacity: 0.4;
+}
+
+.hero__input:focus {
+  outline: none;
+  border-bottom-color: var(--basil);
+}
+
+/* ---------- Buttons ---------- */
+
+.button {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 0.85rem 1.75rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--aubergine);
+  color: var(--leaf);
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--basil);
+}
+
+/* ---------- Category chips ---------- */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 2.5rem;
+}
+
+.chip {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  padding: 0.45rem 1rem;
+  border: 1.5px solid var(--stem);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--aubergine);
+  cursor: pointer;
+}
+
+.chip:hover {
+  border-color: var(--aubergine);
+}
+
+/* Your JS toggles .is-active on the selected chip */
+.chip.is-active {
+  background: var(--saffron);
+  border-color: var(--saffron);
+  color: #2A1A2C;
+}
+
+/* ---------- Results grid ---------- */
+
+.results {
+  padding-bottom: 5rem;
+}
+
+.results__status {
+  font-family: var(--font-display);
+  color: var(--muted);
+  margin: 0 0 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1.5px solid var(--stem);
+}
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2.5rem 1.5rem;
+}
+
+/* ---------- Recipe card (built by your JS) ---------- */
+
+.recipe-card__link {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.recipe-card__image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  background: var(--stem); /* shows while image loads */
+}
+
+.recipe-card__body {
+  padding: 0.85rem 0.25rem 0;
+}
+
+.recipe-card__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.3rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.25rem;
+}
+
+.recipe-card__meta {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.recipe-card__link:hover .recipe-card__title {
+  text-decoration: underline;
+  text-decoration-color: var(--saffron);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
+}
+
+/* ---------- Empty + loading states ---------- */
+
+.empty-state,
+.loader {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.empty-state h2 {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  margin: 0 0 0.5rem;
+}
+
+.empty-state p {
+  color: var(--muted);
+  margin: 0;
+}
+
+.loader {
+  font-family: var(--font-display);
+  color: var(--muted);
+}
+
+/* ---------- Recipe detail ---------- */
+
+.recipe-detail {
+  padding: 2rem 0 5rem;
+}
+
+.back-button {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--basil);
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+
+.back-button::before {
+  content: "← ";
+}
+
+.back-button:hover {
+  text-decoration: underline;
+}
+
+.recipe-detail__header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 2.5rem;
+  align-items: end;
+  margin-bottom: 3.5rem;
+}
+
+.recipe-detail__image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  background: var(--stem);
+}
+
+.recipe-detail__meta {
+  color: var(--muted);
+  margin: 0 0 0.5rem;
+}
+
+.recipe-detail__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.recipe-detail__content {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) minmax(0, 2fr);
+  gap: 3.5rem;
+  align-items: start;
+}
+
+.recipe-detail__content h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin: 0 0 1rem;
+}
+
+/* Ingredients: a checklist that stays in view while you cook */
+.ingredients {
+  position: sticky;
+  top: 1.5rem;
+  background: var(--paper);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+}
+
+.ingredients__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ingredients__list li {
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--stem);
+}
+
+.ingredients__list li:last-child {
+  border-bottom: none;
+}
+
+.ingredients__list label {
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  cursor: pointer;
+}
+
+.ingredients__list input {
+  accent-color: var(--basil);
+  transform: translateY(2px);
+}
+
+.ingredients__list .qty {
+  font-weight: 600;
+}
+
+/* Strike through ingredients once checked */
+.ingredients__list label:has(input:checked) {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+/* Method: steps really are a sequence, so they get big numbers */
+.method {
+  max-width: 65ch;
+}
+
+.method__steps {
+  list-style: none;
+  counter-reset: step;
+  margin: 0;
+  padding: 0;
+}
+
+.method__steps li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 3.5rem;
+  margin-bottom: 1.75rem;
+  line-height: 1.75;
+}
+
+.method__steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: -0.1rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--saffron);
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 2rem var(--gutter);
+  border-top: 1.5px solid var(--stem);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 760px) {
+  .recipe-detail__header,
+  .recipe-detail__content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .ingredients {
+    position: static;
+  }
+
+  .recipe-detail__image {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pantry — Find something to cook</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo">Pantry</a>
+    <nav class="site-nav">
+      <a href="#results">Browse</a>
+      <a href="#saved">Saved</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HERO: the search sits inside the headline -->
+    <section class="hero">
+      <h1 class="hero__title">
+        Tonight I'm cooking
+        <label for="search-input" class="visually-hidden">Search recipes</label>
+        <input
+          id="search-input"
+          class="hero__input"
+          type="search"
+          placeholder="something with chicken"
+          autocomplete="off">
+      </h1>
+      <button id="search-button" class="button">Find recipes</button>
+
+      <!-- Category filters: give each button a data-category your JS can read -->
+      <div class="filters" id="filters">
+        <button class="chip is-active" data-category="all">Everything</button>
+        <button class="chip" data-category="Chicken">Chicken</button>
+        <button class="chip" data-category="Vegetarian">Vegetarian</button>
+        <button class="chip" data-category="Seafood">Seafood</button>
+        <button class="chip" data-category="Pasta">Pasta</button>
+        <button class="chip" data-category="Dessert">Dessert</button>
+      </div>
+    </section>
+
+    <!-- RESULTS: your JS fills #recipe-container with .recipe-card elements -->
+    <section class="results" id="results">
+      <p class="results__status" id="results-status">Showing popular recipes</p>
+
+      <div class="recipe-grid" id="recipe-container">
+
+        <!-- SAMPLE CARD — delete once your JS is adding real ones.
+             This is the markup your JS should build for each recipe. -->
+        <article class="recipe-card">
+          <button class="recipe-card__link" data-id="52772">
+            <img class="recipe-card__image" src="" alt="Teriyaki chicken casserole">
+            <div class="recipe-card__body">
+              <h2 class="recipe-card__title">Teriyaki Chicken Casserole</h2>
+              <p class="recipe-card__meta">Japanese, Chicken</p>
+            </div>
+          </button>
+        </article>
+
+        <article class="recipe-card">
+          <button class="recipe-card__link" data-id="52804">
+            <img class="recipe-card__image" src="" alt="Poutine">
+            <div class="recipe-card__body">
+              <h2 class="recipe-card__title">Poutine</h2>
+              <p class="recipe-card__meta">Canadian, Side</p>
+            </div>
+          </button>
+        </article>
+        <!-- END SAMPLE -->
+
+      </div>
+
+      <!-- Show this (remove "hidden") when a search returns nothing -->
+      <div class="empty-state" id="empty-state" hidden>
+        <h2>No recipes match that search</h2>
+        <p>Try a single ingredient, like "beef" or "lemon".</p>
+      </div>
+
+      <!-- Show this while fetching -->
+      <div class="loader" id="loader" hidden>Finding recipes…</div>
+    </section>
+
+    <!-- DETAIL VIEW: remove "hidden" and fill it when a card is clicked -->
+    <section class="recipe-detail" id="recipe-detail" hidden>
+      <button class="back-button" id="back-button">Back to recipes</button>
+
+      <div class="recipe-detail__header">
+        <img class="recipe-detail__image" id="detail-image" src="" alt="">
+        <div>
+          <p class="recipe-detail__meta" id="detail-meta">Japanese, Chicken</p>
+          <h2 class="recipe-detail__title" id="detail-title">Teriyaki Chicken Casserole</h2>
+        </div>
+      </div>
+
+      <div class="recipe-detail__content">
+        <aside class="ingredients">
+          <h3>Ingredients</h3>
+          <!-- JS: add one <li> per ingredient -->
+          <ul class="ingredients__list" id="detail-ingredients">
+            <li><label><input type="checkbox"> <span class="qty">3/4 cup</span> soy sauce</label></li>
+            <li><label><input type="checkbox"> <span class="qty">1/2 cup</span> water</label></li>
+          </ul>
+        </aside>
+
+        <div class="method">
+          <h3>Method</h3>
+          <!-- JS: add one <li> per step -->
+          <ol class="method__steps" id="detail-steps">
+            <li>Preheat oven to 350°F. Spray a 9x13 pan with cooking spray.</li>
+            <li>Combine soy sauce, water, brown sugar and ginger in a saucepan.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Recipes provided by your API of choice.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
