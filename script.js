@@ -3,13 +3,32 @@ let recipies = [];
 
 //Grab Form elements 
 const results = document.querySelector("#recipe-container");
+const recipeDetails = document.querySelector("#recipe-detail");
 
 
 //Initilize App here 
 async function app() {
     recipies = await fetchData();
-    console.log(recipies);
     populateRecipies();
+
+    results.addEventListener("click", (event) => {
+        const clickedRecipie = event.target.closest('[data-id]');
+        const id = clickedRecipie .dataset.id;
+        
+        if (id == null) {
+            return
+        }
+
+        fullRecipie(id);
+        
+    })
+
+     document.querySelector("#back-button").addEventListener("click", () => {
+        recipeDetails.hidden = true;
+        document.querySelector("#results").hidden = false;
+    })
+
+    
 }
 
 
@@ -74,6 +93,75 @@ function populateRecipies() {
 
 }
 
-//
+//Dsiplay the full recipie 
+//This is the next step, gotta fill out the card
+function fullRecipie(id) {
+   const foundRecipe = recipies.find((recipe) => {
+         return recipe.idMeal === id;
+         
+    });
+    // Now we create the actual recipie on the page
+    const detailImage = document.querySelector("#detail-image");
+    detailImage.src = foundRecipe.strMealThumb;
+    detailImage.alt = foundRecipe.strMeal;
+
+    const detailMeta = document.querySelector("#detail-meta");
+    detailMeta.textContent = foundRecipe.strCountry + ", " + foundRecipe.strCategory;
+
+    const detailTitle = document.querySelector("#detail-title");
+    detailTitle.textContent = foundRecipe.strMeal;
+
+    
+
+     // Ingredients
+    const ingredientList = document.querySelector("#detail-ingredients");
+    ingredientList.innerHTML = ""; // clear the last recipe's items
+
+    for (let i = 1; i <= 20; i++) {
+        const ingredient = foundRecipe[`strIngredient${i}`];
+        const measure = foundRecipe[`strMeasure${i}`];
+
+        if (!ingredient) {
+            continue;
+        }
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+
+        const span = document.createElement("span");
+        span.classList.add("qty");
+        span.textContent = measure;
+
+        const label = document.createElement("label");
+        label.appendChild(checkbox);
+        label.appendChild(span);
+        label.append(" " + ingredient);
+
+        const li = document.createElement("li");
+        li.appendChild(label);
+        ingredientList.appendChild(li);
+    }
+
+    // Steps
+    const stepList = document.querySelector("#detail-steps");
+    stepList.innerHTML = "";
+
+    const steps = foundRecipe.strInstructions.split("\r\n");
+
+    for (const step of steps) {
+        if (!step.trim()) {
+            continue;
+        }
+
+        const li = document.createElement("li");
+        li.textContent = step;
+        stepList.appendChild(li);
+    }
+
+    // Swap views
+    document.querySelector("#results").hidden = true;
+    recipeDetails.hidden = false;
+
+}
 
 app();
