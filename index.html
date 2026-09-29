@@ -40,17 +40,15 @@
       <!-- Category filters: give each button a data-category your JS can read -->
       <div class="filters" id="filters">
         <button class="chip is-active" data-category="all">Everything</button>
-        <button class="chip" data-category="Chicken">Chicken</button>
-        <button class="chip" data-category="Vegetarian">Vegetarian</button>
-        <button class="chip" data-category="Seafood">Seafood</button>
-        <button class="chip" data-category="Pasta">Pasta</button>
-        <button class="chip" data-category="Dessert">Dessert</button>
+        <button class="chip" data-category="Ingredient">Ingredient</button>
+        <button class="chip" data-category="Country">Country</button>
+        <button class="chip" data-category="Catagory">Catagory</button>
       </div>
     </section>
 
     <!-- RESULTS: your JS fills #recipe-container with .recipe-card elements -->
     <section class="results" id="results">
-      <p class="results__status" id="results-status">Showing popular recipes</p>
+      <p class="results__status" id="results-status">Search for something to get started</p>
 
       <div class="recipe-grid" id="recipe-container">
 
@@ -66,7 +64,7 @@
       <div class="loader" id="loader" hidden>Finding recipes…</div>
     </section>
 
-    <!-- DETAIL VIEW: remove "hidden" and fill it when a card is clicked -->
+ 
 
     <section class="recipe-detail" id="recipe-detail" hidden>
       <button class="back-button" id="back-button">Back to recipes</button>
@@ -82,7 +80,7 @@
       <div class="recipe-detail__content">
         <aside class="ingredients">
           <h3>Ingredients</h3>
-          <!-- JS: add one <li> per ingredient -->
+       
           <ul class="ingredients__list" id="detail-ingredients">
             <li><label><input type="checkbox"> <span class="qty">3/4 cup</span> soy sauce</label></li>
             <li><label><input type="checkbox"> <span class="qty">1/2 cup</span> water</label></li>
@@ -91,7 +89,7 @@
 
         <div class="method">
           <h3>Method</h3>
-          <!-- JS: add one <li> per step -->
+          
           <ol class="method__steps" id="detail-steps">
             <li>Preheat oven to 350°F. Spray a 9x13 pan with cooking spray.</li>
             <li>Combine soy sauce, water, brown sugar and ginger in a saucepan.</li>

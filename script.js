@@ -4,16 +4,31 @@ let recipies = [];
 //Grab Form elements 
 const results = document.querySelector("#recipe-container");
 const recipeDetails = document.querySelector("#recipe-detail");
+const filters = document.querySelector("#filters");
 
 
 //Initilize App here 
 async function app() {
-    recipies = await fetchData();
-    populateRecipies();
+    document.querySelector("#search-button").addEventListener("click", async () => {
+        const search = document.querySelector("#search-input");
+        const recipeSearch = search.value;
+        recipies = await fetchData(recipeSearch);
+        // Update the search for something to get started text 
+        const resultStatus = document.querySelector("#results-status");
+        resultStatus.textContent = `Result for ${recipeSearch}`;
+        //Populate the recipies on the page
+        populateRecipies();
+        
+        
+
+    })
+
+    
+    
 
     results.addEventListener("click", (event) => {
         const clickedRecipie = event.target.closest('[data-id]');
-        const id = clickedRecipie .dataset.id;
+        const id = clickedRecipie.dataset.id;
         
         if (id == null) {
             return
@@ -28,14 +43,22 @@ async function app() {
         document.querySelector("#results").hidden = false;
     })
 
+    filters.addEventListener("click", (event) => {
+
+        const activeFilter = event.target.closest(``)
+    })
+    
+
     
 }
-
+/////////////////////////////////////////////////
 
 //Get Data Function
-async function fetchData() {
+async function fetchData(search) {
     try {
-        const response = await fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=chicken")
+        const base = "https://www.themealdb.com/api/json/v1/1/search.php?s="
+        
+        const response = await fetch(`${base}${encodeURIComponent(search)}`)
 
         if (!response.ok){
             throw new Error(`Response status: ${response.status}`)
@@ -54,6 +77,12 @@ async function fetchData() {
 
 //Create Cards
 function populateRecipies() {
+    //clear cards
+    results.innerHTML = "";
+
+    //Loop through the results 
+    for (let recipe of recipies) {
+
     //create article
     const article = document.createElement("article");
     article.classList.add("recipe-card");
@@ -61,14 +90,14 @@ function populateRecipies() {
     //create button
     const button = document.createElement("button");
     button.classList.add("recipe-card__link");
-    button.dataset.id = recipies[0].idMeal;
+    button.dataset.id = recipe.idMeal;
     article.appendChild(button);
 
     //create image
     const image = document.createElement("img")
     image.classList.add("recipe-card__image");
-    image.src = recipies[0].strMealThumb;
-    image.alt = recipies[0].strMeal;
+    image.src = recipe.strMealThumb;
+    image.alt = recipe.strMeal;
     button.appendChild(image);
 
     //create div
@@ -77,12 +106,12 @@ function populateRecipies() {
 
     const h2 = document.createElement("h2");
     h2.classList.add("recipe-card__title")
-    h2.textContent = recipies[0].strMeal;
+    h2.textContent = recipe.strMeal;
     div.appendChild(h2);
 
     const p = document.createElement("p");
     p.classList.add("recipe-card__meta");
-    p.textContent = recipies[0].strCountry +", " + recipies[0].strCategory ;
+    p.textContent = recipe.strCountry +", " + recipe.strCategory ;
 
     div.appendChild(p);
 
@@ -90,6 +119,10 @@ function populateRecipies() {
 
     // Place the whole thing into recipe container
     results.appendChild(article);
+
+    }
+
+
 
 }
 
