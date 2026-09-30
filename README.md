@@ -2,7 +2,7 @@
 
 A recipe finder built with plain HTML, CSS, and JavaScript. Search for recipes, filter by ingredient, country, or category, open a full recipe with a checkable ingredient list, and save favorites for later.
 
-Built as a learning project to practice working with APIs and the DOM without a framework.
+
 
 ## Features
 
