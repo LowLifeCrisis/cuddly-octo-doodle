@@ -19,14 +19,6 @@ Built as a learning project to practice working with APIs and the DOM without a 
 - [TheMealDB API](https://www.themealdb.com/api.php) for recipe data
 - Postman for testing API endpoints before writing code
 
-## Running it locally
-
-1. Clone the repo.
-2. Open `index.html` in your browser.
-
-That's it. There's nothing to install.
-
-> TheMealDB's test key (`1`) is used for development. Publishing an app that uses the API publicly requires supporting TheMealDB on Patreon.
 
 ## Project structure
 
