@@ -24,6 +24,6 @@ A recipe finder built with plain HTML, CSS, and JavaScript. Search for recipes, 
 
 ```
 index.html   Page structure, including the detail view and empty states
-styles.css   All styling, including dark mode and mobile layout
+styles.css   All styling, including automatic dark mode based on system settings and mobile layout
 script.js    Fetching data, building cards, handling clicks, saving recipes
 ```
